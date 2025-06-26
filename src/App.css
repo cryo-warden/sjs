@@ -1,0 +1,30 @@
+.App {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  border-radius: 0.5em;
+  background-color: rgba(64, 64, 64, 0.05);
+  backdrop-filter: blur(10px);
+
+  button {
+    border: solid black 0.2em;
+    border-radius: 0.5em;
+    background-color: #40404040;
+    backdrop-filter: blur(10px);
+    color: #e0e0e0;
+    margin: 1em;
+    padding: 1em;
+
+    &:hover {
+      filter: brightness(120%);
+    }
+
+    &:active {
+      filter: brightness(150%);
+      transform: scale(1.025);
+    }
+  }
+}
