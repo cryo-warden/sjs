@@ -1,13 +1,52 @@
 .App {
-  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 100%;
+  min-height: 30em;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
   position: relative;
   z-index: 1;
   border-radius: 0.5em;
-  background-color: rgba(64, 64, 64, 0.05);
-  backdrop-filter: blur(10px);
+
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-align: center;
+  }
+
+  .mood-chill {
+    font-family: sans-serif;
+    font-weight: unset;
+    letter-spacing: 0.1em;
+  }
+  .mood-respect {
+    font-family: serif;
+    letter-spacing: 0.1em;
+  }
+
+  .left-align {
+    text-align: left;
+    align-self: left;
+    align-content: left;
+  }
+
+  .right-align {
+    text-align: right;
+    align-self: right;
+    align-content: right;
+  }
 
   button {
     border: solid black 0.2em;
@@ -26,5 +65,33 @@
       filter: brightness(150%);
       transform: scale(1.025);
     }
+
+    &:disabled {
+      filter: brightness(50%);
+    }
+  }
+
+  .panel {
+    border-radius: 0.5em;
+    margin: 1em;
+    padding: 1em;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+  }
+
+  .JobLocationButtons {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(auto, 33.33%));
+    grid-template-columns: repeat(auto-fill);
+    grid-template-columns: repeat(auto-fill, fit-content(20%));
+    justify-content: center;
+    & > * {
+      min-height: 8em;
+    }
+  }
+
+  .JobButton {
+    min-width: 10em;
   }
 }

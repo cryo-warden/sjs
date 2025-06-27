@@ -1,16 +1,10 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #2424c4;
-}
 html,
 body {
   margin: 0;
   display: grid;
   place-items: center;
   min-width: 320px;
+  max-width: 100%;
   min-height: 100vh;
   position: relative;
 }
@@ -21,8 +15,8 @@ body::before {
   z-index: -1;
   opacity: 0.05;
   background: url("./logo.svg");
-  background-size: 256px;
-  transform: rotate(-12deg) scale(1.35);
+  background-size: 128px;
+  transform: scale(2);
   animation: slide 30s linear infinite;
   pointer-events: none;
 }
@@ -31,6 +25,17 @@ body::before {
     background-position: 0 0;
   }
   to {
-    background-position: -256px -224px;
+    background-position: -512px -1024px;
   }
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #2424c4;
+  width: 100%;
+  max-width: 100%;
 }

@@ -34,3 +34,22 @@ export const matrixProduct = (a: number[][], b: number[][]): number[][] => {
     return total;
   });
 };
+export const weightedSample = <T>(
+  items: (readonly [number, T])[]
+): T | null => {
+  let totalWeight = 0;
+  for (let i = 0; i < items.length; ++i) {
+    totalWeight += items[i][0];
+  }
+  const weightPoint = totalWeight * Math.random();
+  for (let cummulativeWeight = 0, i = 0; i < items.length; ++i) {
+    const [weight, item] = items[i];
+    cummulativeWeight += weight;
+
+    if (cummulativeWeight > weightPoint) {
+      return item;
+    }
+  }
+
+  return null;
+};

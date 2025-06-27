@@ -1,7 +1,8 @@
 import { JOB_NAMES, JobName, JobSelectionCriteria } from "./Job";
 import {
-  INHERENT_JOB_LOCATION_NAMES as INHERENT_LOCATION_JOB_NAMES,
+  INHERENT_LOCATION_JOB_NAMES,
   JobLocationSelectionCriteria,
+  SNOWBALL_JOB_LOCATION_NAMES,
 } from "./JobLocation";
 import {
   LOCATION_INDEXES,
@@ -10,7 +11,7 @@ import {
   LocationSelectionCriteria,
   nextLocationName,
 } from "./Location";
-import { createMatrix, createVector } from "./math";
+import { createMatrix, weightedSample } from "./math";
 
 export type SelectionCriteria = {
   job: JobSelectionCriteria;
@@ -51,7 +52,7 @@ export const defaultCriteria: SelectionCriteria = {
           // Allow all jobs at SUNKEN by default.
           return 1;
         }
-        return INHERENT_LOCATION_JOB_NAMES[j].includes(JOB_NAMES[i]) ? 1 : 0;
+        return SNOWBALL_JOB_LOCATION_NAMES[j].includes(JOB_NAMES[i]) ? 1 : 0;
       }
     ),
   },
@@ -104,7 +105,6 @@ const selectSingleJob = (
   jobLocation: JobLocationSelectionCriteria,
   currentJobs: JobName[]
 ): JobName | null => {
-  let totalWeight = 0;
   const locationIndex = LOCATION_INDEXES[locationName];
   const weightedJobOptions = job
     .map((jobCriterion, i) => {
@@ -115,23 +115,11 @@ const selectSingleJob = (
         return null;
       }
 
-      totalWeight += weight;
       return [weight, jobName] as const;
     })
     .filter((pair) => pair != null);
 
-  // TODO Factor out weightedSample function.
-  const weightPoint = totalWeight * Math.random();
-  for (let cummulativeWeight = 0, i = 0; i < weightedJobOptions.length; ++i) {
-    const [weight, jobName] = weightedJobOptions[i];
-    cummulativeWeight += weight;
-
-    if (cummulativeWeight > weightPoint) {
-      return jobName;
-    }
-  }
-
-  return null;
+  return weightedSample(weightedJobOptions);
 };
 
 export const select = (
