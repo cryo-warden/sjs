@@ -1,4 +1,8 @@
-# bun-react-template
+# Six Job Siesta
+
+Final Fantasy V random-job roller. Inspired by the annual *Four Job Fiesta* challenge event!
+
+----
 
 To install dependencies:
 
