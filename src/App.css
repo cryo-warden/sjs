@@ -55,7 +55,7 @@
     backdrop-filter: blur(10px);
     color: #e0e0e0;
     margin: 1em;
-    padding: 1em;
+    padding: 1em 0.25em;
 
     &:hover {
       filter: brightness(120%);
@@ -83,8 +83,6 @@
     text-align: center;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(auto, 33.33%));
-    grid-template-columns: repeat(auto-fill);
-    grid-template-columns: repeat(auto-fill, fit-content(20%));
     justify-content: center;
     & > * {
       min-height: 8em;
@@ -92,6 +90,7 @@
   }
 
   .JobButton {
-    min-width: 10em;
+    width: 10em;
+    max-width: calc(100% - 2em);
   }
 }
