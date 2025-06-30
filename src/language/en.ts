@@ -31,8 +31,8 @@ export const language: Language = {
   ],
   locationNames: ["Wind", "Water", "Fire", "Crescent", "Earth", "Sunken"],
   blobRecord: {
-    title: "",
-    ff5: "",
+    title: "Six Job Siesta",
+    ff5: "Final Fantasy V",
     about: "",
   },
 };
