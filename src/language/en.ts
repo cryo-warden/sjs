@@ -1,0 +1,38 @@
+import { Language } from "./Language";
+
+export const language: Language = {
+  jobNames: [
+    "Freelancer",
+    "Knight",
+    "Monk",
+    "Thief",
+    "Dragoon",
+    "Ninja",
+    "Samurai",
+    "Berkserker",
+    "Ranger",
+    "Mystic Knight",
+    "White Mage",
+    "Black Mage",
+    "Time Mage",
+    "Summoner",
+    "Blue Mage",
+    "Red Mage",
+    "Beastmaster",
+    "Chemist",
+    "Geomancer",
+    "Bard",
+    "Dancer",
+    "Oracle",
+    "Cannoneer",
+    "Gladiator",
+    "Necromancer",
+    "Mime",
+  ],
+  locationNames: ["Wind", "Water", "Fire", "Crescent", "Earth", "Sunken"],
+  blobRecord: {
+    title: "",
+    ff5: "",
+    about: "",
+  },
+};

@@ -1,17 +1,17 @@
-import { JOB_NAMES, JobName, JobSelectionCriteria } from "./Job";
+import { JOB_NAMES, JobId, JobName, JobSelectionCriteria } from "./Job";
 import {
   INHERENT_LOCATION_JOB_NAMES,
   JobLocationSelectionCriteria,
   SNOWBALL_JOB_LOCATION_NAMES,
 } from "./JobLocation";
 import {
-  LOCATION_INDEXES,
+  LocationId,
   LOCATION_NAMES,
-  LocationName,
   LocationSelectionCriteria,
-  nextLocationName,
+  nextLocation,
 } from "./Location";
-import { createMatrix, weightedSample } from "./math";
+import { createMatrix, weightedSample } from "../math";
+import { ConvertTuple } from "@/type";
 
 export type SelectionCriteria = {
   job: JobSelectionCriteria;
@@ -85,37 +85,36 @@ export const applyBanList = (
 };
 
 export type PartyState = {
-  locationName: LocationName | null;
-  jobNames: JobName[];
+  location: LocationId | null;
+  jobs: JobId[];
+  locationJobs: ConvertTuple<typeof LOCATION_NAMES, JobId[]>;
 };
 
 export const createNewPartyState = (): PartyState => ({
-  jobNames: [],
-  locationName: LOCATION_NAMES[0],
+  jobs: [],
+  location: 0,
+  locationJobs: [[], [], [], [], [], []],
 });
 
 export type Selection = {
   nextPartyState: PartyState;
-  newJobNames: JobName[];
 };
 
 const selectSingleJob = (
-  locationName: LocationName,
-  job: JobSelectionCriteria,
-  jobLocation: JobLocationSelectionCriteria,
-  currentJobs: JobName[]
-): JobName | null => {
-  const locationIndex = LOCATION_INDEXES[locationName];
-  const weightedJobOptions = job
+  location: LocationId,
+  jobCriteria: JobSelectionCriteria,
+  jobLocationCriteria: JobLocationSelectionCriteria,
+  currentJobs: JobId[]
+): JobId | null => {
+  const weightedJobOptions = jobCriteria
     .map((jobCriterion, i) => {
-      const jobName = JOB_NAMES[i];
-      const jobCount = currentJobs.filter((job) => job === jobName).length;
-      const weight = jobLocation.weightMatrix[i][locationIndex];
+      const jobCount = currentJobs.filter((job) => job === i).length;
+      const weight = jobLocationCriteria.weightMatrix[i][location];
       if (weight <= 0 || jobCount >= jobCriterion.allowedCount) {
         return null;
       }
 
-      return [weight, jobName] as const;
+      return [weight, i as JobId] as const;
     })
     .filter((pair) => pair != null);
 
@@ -126,34 +125,35 @@ export const select = (
   criteria: SelectionCriteria,
   party: PartyState
 ): Selection => {
-  if (party.locationName == null) {
+  if (party.location == null) {
     return {
       nextPartyState: party,
-      newJobNames: [],
     };
   }
 
   const { job, jobLocation, location } = criteria;
-  const locationIndex = LOCATION_INDEXES[party.locationName];
-  const { jobSelectionCount } = location[locationIndex];
+  const { jobSelectionCount } = location[party.location];
+  const locationJobs = party.locationJobs.slice() as typeof party.locationJobs;
 
-  const newJobNames: JobName[] = [];
+  const newJobs: JobId[] = [];
   for (let i = 0; i < jobSelectionCount; ++i) {
-    const newJobName = selectSingleJob(party.locationName, job, jobLocation, [
-      ...party.jobNames,
-      ...newJobNames,
+    const newJob = selectSingleJob(party.location, job, jobLocation, [
+      ...party.jobs,
+      ...newJobs,
     ]);
-    if (newJobName == null) {
+    if (newJob == null) {
       break;
     }
-    newJobNames.push(newJobName);
+    newJobs.push(newJob);
   }
+
+  locationJobs[party.location] = newJobs;
 
   return {
     nextPartyState: {
-      jobNames: [...party.jobNames, ...newJobNames],
-      locationName: nextLocationName(party.locationName),
+      jobs: [...party.jobs, ...newJobs],
+      location: nextLocation(party.location),
+      locationJobs,
     },
-    newJobNames,
   };
 };

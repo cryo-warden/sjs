@@ -1,6 +1,6 @@
 import { JobName } from "./Job";
 import { LOCATION_NAMES } from "./Location";
-import { ConvertTuple } from "./type";
+import { ConvertTuple } from "../type";
 
 export type JobLocationSelectionCriteria = {
   weightMatrix: number[][];

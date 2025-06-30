@@ -1,5 +1,5 @@
-import { createMatrix, dotProduct } from "./math";
-import { ConvertTuple } from "./type";
+import { createMatrix, dotProduct } from "../math";
+import { ConvertTuple, KeyOfTuple } from "../type";
 
 export type JobEvaluation = [
   number,
@@ -70,6 +70,7 @@ export const JOB_NAMES = [
   "MIME",
 ] as const;
 
+export type JobId = KeyOfTuple<typeof JOB_NAMES>;
 export type JobName = (typeof JOB_NAMES)[number];
 
 export type JobSelectionCriteria = ConvertTuple<

@@ -1,4 +1,4 @@
-import { ConvertTuple } from "./type";
+import { ConvertTuple, KeyOfTuple } from "../type";
 
 export const LOCATION_NAMES = [
   "WIND",
@@ -18,6 +18,7 @@ export const LOCATION_INDEXES = {
   SUNKEN: 5,
 };
 
+export type LocationId = KeyOfTuple<typeof LOCATION_NAMES>;
 export type LocationName = (typeof LOCATION_NAMES)[number];
 
 export type LocationSelectionCriteria = ConvertTuple<
@@ -27,17 +28,17 @@ export type LocationSelectionCriteria = ConvertTuple<
   }
 >;
 
-export const nextLocationName = (
-  locationName: LocationName | null
-): LocationName | null => {
-  if (locationName == null) {
+export const nextLocation = (
+  location: LocationId | null
+): LocationId | null => {
+  if (location == null) {
     return null;
   }
 
-  const nextIndex = 1 + LOCATION_INDEXES[locationName];
+  const nextIndex = 1 + location;
   if (nextIndex >= LOCATION_NAMES.length) {
     return null;
   }
 
-  return LOCATION_NAMES[nextIndex];
+  return nextIndex as LocationId;
 };

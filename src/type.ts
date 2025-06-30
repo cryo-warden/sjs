@@ -8,3 +8,10 @@ export type ConvertTuple<T extends readonly [...any[]], R> = MapTuple<
   T,
   Record<any, R>
 >;
+
+export type KeyOfTuple<T extends readonly any[]> = Exclude<
+  Extract<keyof T, `${number}`>,
+  keyof any[]
+> extends `${infer N extends number}`
+  ? N
+  : never;
