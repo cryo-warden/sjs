@@ -1,21 +1,14 @@
-import {
-  applyBanList,
-  createNewPartyState,
-  defaultBanList,
-  defaultCriteria,
-} from "../logic/Selection";
 import "./index.css";
 import { WithLanguageContext } from "./LanguageContext";
-import { WithState } from "./StateContext";
+import { initializeSelectionState, State, WithState } from "./StateContext";
 import { Header } from "./Header";
 import { About } from "./About";
 import { JobLocationButtons } from "./JobLocationButtons";
+import { SelectionPicker } from "./SelectionPicker";
 
-// TODO Make criteria configurable with new UI.
-const criteria = applyBanList(defaultBanList, defaultCriteria);
-const initializeState = () => ({
-  criteria,
-  party: createNewPartyState(),
+const initializeState = (): State => ({
+  selectionStateIndex: 0,
+  selectionStates: [initializeSelectionState()],
 });
 
 export function App() {
@@ -25,6 +18,7 @@ export function App() {
         <div className="App">
           <Header />
           <JobLocationButtons />
+          <SelectionPicker />
           <About />
         </div>
       </WithState>
