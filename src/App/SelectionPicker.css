@@ -1,0 +1,11 @@
+.SelectionPicker {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  button {
+    min-width: 15mm;
+    min-height: 15mm;
+  }
+}

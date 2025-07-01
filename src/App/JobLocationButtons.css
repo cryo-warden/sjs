@@ -1,0 +1,9 @@
+.JobLocationButtons {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(auto, 33.33%));
+  justify-content: center;
+  & > * {
+    min-height: 8em;
+  }
+}

@@ -1,0 +1,4 @@
+.JobButton {
+  width: 10em;
+  max-width: calc(100% - 2em);
+}

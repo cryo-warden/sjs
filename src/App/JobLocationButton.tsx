@@ -3,6 +3,7 @@ import { JobButton } from "./JobButton";
 import { JobList } from "./JobList";
 import { useLanguage } from "./LanguageContext";
 import { useParty } from "./StateContext";
+import "./JobLocationButtons.css";
 
 export const JobLocationButton = ({ location }: { location: LocationId }) => {
   const party = useParty();

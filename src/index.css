@@ -1,12 +1,12 @@
 html,
 body {
+  position: relative;
   margin: 0;
-  display: grid;
-  place-items: center;
+  padding: 0;
   min-width: 320px;
   max-width: 100%;
   min-height: 100vh;
-  position: relative;
+  place-items: baseline center;
 }
 body::before {
   content: "";

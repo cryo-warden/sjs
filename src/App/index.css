@@ -1,7 +1,7 @@
 .App {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  justify-content: start;
   max-width: 100%;
   min-height: 30em;
   margin: 0 auto;
@@ -77,20 +77,5 @@
     padding: 1em;
     background-color: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
-  }
-
-  .JobLocationButtons {
-    text-align: center;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(auto, 33.33%));
-    justify-content: center;
-    & > * {
-      min-height: 8em;
-    }
-  }
-
-  .JobButton {
-    width: 10em;
-    max-width: calc(100% - 2em);
   }
 }

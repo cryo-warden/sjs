@@ -9,6 +9,7 @@ import {
   useSetPreviousSelectionIndex,
   useSetNextSelectionIndex,
 } from "./StateContext";
+import "./SelectionPicker.css";
 
 export const SelectionPicker = () => {
   const selectionIndex = useSelectionIndex();
@@ -19,24 +20,26 @@ export const SelectionPicker = () => {
   const selectionsLength = useSelectionsLength();
   return (
     <div className="panel SelectionPicker">
-      <p>Current Selection: {selectionIndex}</p>
       <button onClick={appendNewSelection} disabled={selectionsLength >= 10}>
-        Start New Selection
+        +
       </button>
       <button
         onClick={setPreviousSelectionIndex}
         disabled={selectionIndex <= 0}
       >
-        Previous Selection
+        {"<"}
       </button>
+      <span>
+        {selectionIndex + 1} / {selectionsLength}
+      </span>
       <button
         onClick={setNextSelectionIndex}
         disabled={selectionIndex >= selectionsLength - 1}
       >
-        Next Selection
+        {">"}
       </button>
       <button onClick={deleteSelection} disabled={selectionsLength <= 1}>
-        Delete Selection
+        X
       </button>
     </div>
   );

@@ -2,6 +2,7 @@ import { LocationId } from "@/logic/Location";
 import { select } from "@/logic/Selection";
 import { ReactNode } from "react";
 import { useCriteria, useParty, useSetParty } from "./StateContext";
+import "./JobButton.css";
 
 export const JobButton = ({
   children,
