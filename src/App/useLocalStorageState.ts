@@ -14,12 +14,20 @@ const load = <T>(key: string): T | null => {
 };
 
 const loadOrInit =
-  <T>(key: string, initialize: () => T) =>
+  <T>(
+    key: string,
+    initialize: () => T,
+    migrate: (value: any) => T = (x) => x
+  ) =>
   (): T =>
-    load(key) ?? initialize();
+    migrate(load(key)) ?? initialize();
 
-export const useLocalStorageState = <T>(key: string, init: () => T) => {
-  const [value, setValue] = useState(loadOrInit(key, init));
+export const useLocalStorageState = <T>(
+  key: string,
+  init: () => T,
+  migrate?: (value: any) => T
+) => {
+  const [value, setValue] = useState(loadOrInit(key, init, migrate));
   const setAndStoreValue: Setter<T> = useCallback(
     (newValue: NewState<T>) => {
       setValue((value) => {

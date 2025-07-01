@@ -15,12 +15,25 @@ export type SelectionState = {
   party: PartyState;
 };
 
+const currentVersion = 0 as const;
+type CurrentVersion = typeof currentVersion;
+
 export type State = {
+  version: CurrentVersion;
   selectionStateIndex: number;
   selectionStates: SelectionState[];
 };
 
-// TODO Allow user to navigate to new and previous states.
+const migrations: ((state: any) => any)[] = [];
+
+const migrateState = (state: any): State => {
+  let newState = state;
+  for (let i = state.version ?? 0; i < migrations.length; ++i) {
+    newState = migrations[i](newState);
+  }
+  return newState;
+};
+
 const stateKey = "v0.0.0/state";
 
 const StateContext = createContext<{
@@ -35,7 +48,11 @@ export const WithState = ({
   initialize: () => State;
   children: ReactNode;
 }) => {
-  const [state, setState] = useLocalStorageState(stateKey, initialize);
+  const [state, setState] = useLocalStorageState(
+    stateKey,
+    initialize,
+    migrateState
+  );
   return (
     <StateContext.Provider value={{ state, setState }}>
       {children}

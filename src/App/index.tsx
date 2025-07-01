@@ -7,6 +7,7 @@ import { JobLocationButtons } from "./JobLocationButtons";
 import { SelectionPicker } from "./SelectionPicker";
 
 const initializeState = (): State => ({
+  version: 0,
   selectionStateIndex: 0,
   selectionStates: [initializeSelectionState()],
 });
