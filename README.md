@@ -1,8 +1,10 @@
 # Six Job Siesta
 
-Final Fantasy V random-job roller. Inspired by the annual *Four Job Fiesta* challenge event!
+Final Fantasy V random-job roller. Inspired by the annual **_Four Job Fiesta_** challenge event!
 
-----
+[Check out the website!](https://cryo-warden.github.io/sjs/)
+
+---
 
 To install dependencies:
 
