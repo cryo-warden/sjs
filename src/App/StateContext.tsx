@@ -28,7 +28,7 @@ const migrations: ((state: any) => any)[] = [];
 
 const migrateState = (state: any): State => {
   let newState = state;
-  for (let i = state.version ?? 0; i < migrations.length; ++i) {
+  for (let i = state?.version ?? 0; i < migrations.length; ++i) {
     newState = migrations[i](newState);
   }
   return newState;
